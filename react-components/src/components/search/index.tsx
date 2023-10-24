@@ -3,7 +3,12 @@ import styles from './search.module.scss';
 
 class Search extends React.Component {
   render() {
-    return <div className={styles.search}>Search</div>;
+    return (
+      <section className={styles.search}>
+        <input className={styles.input} type="text" />
+        <button className={styles.button}>Search</button>
+      </section>
+    );
   }
 }
 
