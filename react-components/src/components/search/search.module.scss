@@ -15,7 +15,7 @@
   }
   .button {
     cursor: pointer;
-  
+
     text-align: center;
     text-transform: uppercase;
     font-weight: 600;
@@ -28,7 +28,7 @@
     max-width: 30%;
     padding: 10px;
 
-    transition: .3s;
+    transition: 0.3s;
     &:active {
       color: rgb(47, 0, 255);
     }
