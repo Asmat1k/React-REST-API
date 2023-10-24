@@ -1,5 +1,13 @@
+import Search from './components/search';
+import List from './components/list';
+
 function App() {
-  return <div>Hello, world!</div>;
+  return (
+    <>
+      <Search />
+      <List />
+    </>
+  );
 }
 
 export default App;
