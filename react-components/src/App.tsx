@@ -36,14 +36,13 @@ class App extends React.Component<null, AppState> {
   }
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Search
           onClick={this.updateDataState}
           onLoading={this.updateLoadingState}
         />
-        <List isLoading={this.state.isLoading} />
+        <List isLoading={this.state.isLoading} data={this.state.data} />
       </>
     );
   }

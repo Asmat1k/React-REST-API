@@ -4,7 +4,7 @@
   justify-content: center;
   .loading {
     display: inline-block;
-    
+
     position: relative;
     width: 80px;
     height: 80px;
@@ -32,6 +32,21 @@
     }
   }
 }
+
+.data {
+  width: 60%;
+  margin: 0 auto;
+  .list {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+  }
+}
+
 
 @keyframes loading {
   0% {
