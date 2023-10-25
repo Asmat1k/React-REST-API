@@ -31,6 +31,7 @@ class List extends React.Component<ListProps> {
     }
 
     const { results } = this.props.data;
+
     if (results && results.length > 0) {
       return (
         <section className={styles.data}>
@@ -42,6 +43,7 @@ class List extends React.Component<ListProps> {
         </section>
       );
     }
+    return <div className={styles.empty}>Nothing was found...</div>;
   }
 }
 

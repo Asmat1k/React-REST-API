@@ -47,6 +47,11 @@
   }
 }
 
+.empty {
+  text-align: center;
+  text-transform: uppercase;
+}
+
 @keyframes loading {
   0% {
     transform: rotate(0deg);
