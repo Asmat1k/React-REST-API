@@ -17,7 +17,9 @@ class Search extends React.Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
     super(props);
     this.state = {
-      value: '',
+      value: localStorage.getItem('lastSearch')
+        ? localStorage.getItem('lastSearch')!
+        : '',
     };
   }
 
@@ -26,6 +28,8 @@ class Search extends React.Component<SearchProps, SearchState> {
   }
 
   async handleButtonClick() {
+    localStorage.setItem('lastSearch', this.state.value);
+
     this.props.onLoading();
     try {
       const response = await fetch(
@@ -48,6 +52,7 @@ class Search extends React.Component<SearchProps, SearchState> {
           className={styles.input}
           placeholder="Type StarWars character..."
           maxLength={20}
+          value={this.state.value}
           onChange={(e) => this.handleInputEvent(e)}
         />
         <button
