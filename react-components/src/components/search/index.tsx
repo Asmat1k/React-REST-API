@@ -28,7 +28,9 @@ class Search extends React.Component<SearchProps, SearchState> {
   async handleButtonClick() {
     this.props.onLoading();
     try {
-      const response = await fetch('https://swapi.dev/api/people/');
+      const response = await fetch(
+        `https://swapi.dev/api/people/?search=${this.state.value.trim()}`
+      );
       const json = await response.json();
       this.props.onClick(json);
     } catch (error) {
