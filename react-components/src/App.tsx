@@ -1,18 +1,21 @@
 import React from 'react';
-
 import './styles/nullstyles.scss';
 
-import Search from './components/search';
 import { ApiProps } from './types/types';
+
+import Search from './components/search';
 import List from './components/list';
+import ErrorButton from './components/errorButton';
 
 interface AppState {
   data: ApiProps;
   isLoading: boolean;
 }
 
-class App extends React.Component<null, AppState> {
-  constructor(props: null) {
+interface AppProps {}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       data: {
@@ -43,6 +46,7 @@ class App extends React.Component<null, AppState> {
           onLoading={this.updateLoadingState}
         />
         <List isLoading={this.state.isLoading} data={this.state.data} />
+        <ErrorButton />
       </>
     );
   }
