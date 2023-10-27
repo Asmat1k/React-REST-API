@@ -23,6 +23,10 @@ class Search extends React.Component<SearchProps, SearchState> {
     };
   }
 
+  async componentDidMount() {
+    await this.handleButtonClick();
+  }
+
   handleInputEvent(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ value: event.target.value });
   }
