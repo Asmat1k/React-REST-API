@@ -1,36 +1,27 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styles from './errorButton.module.scss';
 
-interface ErrorButtonProps {}
+function ErrorButton() {
+  const [error, setError] = useState<boolean>(false);
 
-interface ErrorButtonState {
-  hasError: boolean;
-}
-
-class ErrorButton extends React.Component<ErrorButtonProps, ErrorButtonState> {
-  constructor(props: ErrorButtonProps) {
-    super(props);
-    this.state = {
-      hasError: false,
-    };
+  function handleErrorButtonClick() {
+    setError(!error);
   }
 
-  handleErrorButtonClick() {
-    this.setState({ hasError: true }, () => {
-      throw new Error('You clicked on the ERROR button');
-    });
-  }
+  useEffect(() => {
+    if (error) {
+      throw new Error('Error test button clicked');
+    }
+  }, [error]);
 
-  render() {
-    return (
-      <button
-        className={styles.errorBtn}
-        onClick={() => this.handleErrorButtonClick()}
-      >
-        error
-      </button>
-    );
-  }
+  return (
+    <button
+      className={styles.errorBtn}
+      onClick={() => handleErrorButtonClick()}
+    >
+      error
+    </button>
+  );
 }
 
 export default ErrorButton;
