@@ -1,5 +1,6 @@
-import React from 'react';
 import './styles/nullstyles.scss';
+
+import { useState } from 'react';
 
 import { ApiProps } from './types/types';
 
@@ -12,44 +13,32 @@ interface AppState {
   isLoading: boolean;
 }
 
-interface AppProps {}
+function App() {
+  const [data, setData] = useState<AppState>({
+    data: {
+      count: 0,
+      next: '',
+      previous: '',
+      results: [],
+    },
+    isLoading: false,
+  });
 
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    this.state = {
-      data: {
-        count: 0,
-        next: '',
-        previous: '',
-        results: [],
-      },
-      isLoading: false,
-    };
-    this.updateDataState = this.updateDataState.bind(this);
-    this.updateLoadingState = this.updateLoadingState.bind(this);
+  function updateLoadingState() {
+    setData((prevState) => ({ ...prevState, isLoading: !prevState.isLoading }));
   }
 
-  updateLoadingState() {
-    this.setState((oldState) => ({ isLoading: !oldState.isLoading }));
+  function updateDataState(json: ApiProps) {
+    setData((prevState) => ({ ...prevState, data: json }));
   }
 
-  updateDataState(json: ApiProps) {
-    this.setState({ data: json });
-  }
-
-  render() {
-    return (
-      <>
-        <Search
-          onClick={this.updateDataState}
-          onLoading={this.updateLoadingState}
-        />
-        <List isLoading={this.state.isLoading} data={this.state.data} />
-        <ErrorButton />
-      </>
-    );
-  }
+  return (
+    <>
+      <Search onClick={updateDataState} onLoading={updateLoadingState} />
+      <List isLoading={data.isLoading} data={data.data} />
+      <ErrorButton />
+    </>
+  );
 }
 
 export default App;

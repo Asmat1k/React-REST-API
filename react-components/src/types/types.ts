@@ -6,7 +6,7 @@ export interface ApiProps {
   count: number;
   next: string;
   previous: string;
-  results: ApiItem[];
+  results?: ApiItem[];
 }
 
 export interface ApiItem {

@@ -39,7 +39,7 @@ class Search extends React.Component<SearchProps, SearchState> {
       const response = await fetch(
         `https://swapi.dev/api/people/?search=${this.state.value.trim()}`
       );
-      const json = await response.json();
+      const json: ApiProps = await response.json();
       this.props.onClick(json);
     } catch (error) {
       console.log(error);
