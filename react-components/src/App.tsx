@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-      <Search onClick={updateDataState} onLoading={updateLoadingState} />
+      <Search updateData={updateDataState} updateLoading={updateLoadingState} />
       <List isLoading={data.isLoading} data={data.data} />
       <ErrorButton />
     </>

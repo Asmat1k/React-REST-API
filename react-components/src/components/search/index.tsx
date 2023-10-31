@@ -1,73 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './search.module.scss';
 
 import { ApiProps } from '../../types/types';
 
-interface SearchState {
-  value: string;
-}
-
 interface SearchProps {
-  onClick: (param: ApiProps) => void;
-  onLoading: () => void;
+  updateData: (param: ApiProps) => void;
+  updateLoading: () => void;
 }
 
-class Search extends React.Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    this.state = {
-      value: localStorage.getItem('lastSearch')
-        ? localStorage.getItem('lastSearch')!
-        : '',
-    };
+function Search({ updateData, updateLoading }: SearchProps) {
+  const [value, setValue] = useState<string>(
+    localStorage.getItem('lastSearch')
+      ? localStorage.getItem('lastSearch')!
+      : ''
+  );
+
+  function handleInputEvent(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
   }
 
-  async componentDidMount() {
-    await this.handleButtonClick();
-  }
+  async function handleButtonClick() {
+    localStorage.setItem('lastSearch', value);
 
-  handleInputEvent(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ value: event.target.value });
-  }
-
-  async handleButtonClick() {
-    localStorage.setItem('lastSearch', this.state.value);
-
-    this.props.onLoading();
+    updateLoading();
     try {
       const response = await fetch(
-        `https://swapi.dev/api/people/?search=${this.state.value.trim()}`
+        `https://swapi.dev/api/people/?search=${value.trim()}`
       );
       const json: ApiProps = await response.json();
-      this.props.onClick(json);
+      updateData(json);
     } catch (error) {
       console.log(error);
     } finally {
-      this.props.onLoading();
+      updateLoading();
     }
   }
 
-  render() {
-    return (
-      <section className={styles.search}>
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="Type StarWars character..."
-          maxLength={20}
-          value={this.state.value}
-          onChange={(e) => this.handleInputEvent(e)}
-        />
-        <button
-          className={styles.button}
-          onClick={() => this.handleButtonClick()}
-        >
-          Search
-        </button>
-      </section>
-    );
-  }
+  return (
+    <section className={styles.search}>
+      <input
+        type="text"
+        className={styles.input}
+        placeholder="Type StarWars character..."
+        maxLength={20}
+        value={value}
+        onChange={(e) => handleInputEvent(e)}
+      />
+      <button className={styles.button} onClick={() => handleButtonClick()}>
+        Search
+      </button>
+    </section>
+  );
 }
 
 export default Search;
