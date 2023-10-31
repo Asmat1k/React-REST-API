@@ -28,8 +28,8 @@ function App() {
     setData((prevState) => ({ ...prevState, isLoading: !prevState.isLoading }));
   }
 
-  function updateDataState(json: ApiProps) {
-    setData((prevState) => ({ ...prevState, data: json }));
+  function updateDataState(json?: ApiProps | void) {
+    if (json) setData((prevState) => ({ ...prevState, data: json }));
   }
 
   return (

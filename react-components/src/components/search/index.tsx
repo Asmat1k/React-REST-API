@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from './search.module.scss';
 
 import { ApiProps } from '../../types/types';
+import searchApi from '../../api/api';
 
 interface SearchProps {
   updateData: (param: ApiProps) => void;
@@ -24,17 +25,9 @@ function Search({ updateData, updateLoading }: SearchProps) {
     localStorage.setItem('lastSearch', value);
 
     updateLoading();
-    try {
-      const response = await fetch(
-        `https://swapi.dev/api/people/?search=${value.trim()}`
-      );
-      const json: ApiProps = await response.json();
-      updateData(json);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      updateLoading();
-    }
+    const json = await searchApi(value);
+    updateData(json!);
+    updateLoading();
   }
 
   return (
