@@ -2,6 +2,7 @@ import styles from './list.module.scss';
 
 import { ApiItem, ApiProps } from '../../types/types';
 import Item from '../item';
+import Pagination from '../pagination';
 
 interface ListProps {
   data: ApiProps;
@@ -32,6 +33,7 @@ function List({ data, isLoading }: ListProps) {
             <Item data={character} key={index} myKey={index} />
           ))}
         </ul>
+        <Pagination />
       </section>
     );
   }
