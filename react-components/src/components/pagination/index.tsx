@@ -19,10 +19,8 @@ function Pagination() {
       navigate(`/?page=${next ? nextPageNum + 1 : nextPageNum - 1}`);
     }
 
-    const value = localStorage.getItem('lastSearch')!;
     updateLoadingState();
     const json = await searchApi(
-      value,
       next ? getQueryFromURL(response.next) : getQueryFromURL(response.previous)
     );
     updateDataState(json!);

@@ -4,13 +4,14 @@ import styles from './search.module.scss';
 
 import searchApi from '../../api/api';
 import Context from '../../context';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Search() {
   const { updateLoadingState, updateDataState, updateNumberState } =
     useContext(Context);
 
-  const location = useLocation();
+  const navigation = useNavigate();
+
   const [value, setValue] = useState<string>(
     localStorage.getItem('lastSearch')
       ? localStorage.getItem('lastSearch')!
@@ -43,11 +44,14 @@ function Search() {
     updateNumberState(number);
 
     localStorage.setItem('lastSearch', value);
+    const newQuery = `/?search=${value}&page=1`;
+    navigation(newQuery);
 
     updateLoadingState();
-    const json = await searchApi(value, location.search);
-    updateDataState(json!);
 
+    const json = await searchApi(newQuery);
+
+    updateDataState(json!);
     updateLoadingState();
   }
 
