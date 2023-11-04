@@ -4,13 +4,13 @@ import styles from './search.module.scss';
 
 import searchApi from '../../api/api';
 import Context from '../../context';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Search() {
   const { updateLoadingState, updateDataState, updateNumberState } =
     useContext(Context);
 
-  const navigate = useNavigate();
+  const location = useLocation();
   const [value, setValue] = useState<string>(
     localStorage.getItem('lastSearch')
       ? localStorage.getItem('lastSearch')!
@@ -21,7 +21,6 @@ function Search() {
 
   useEffect(() => {
     handleButtonClick();
-    navigate('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,7 +32,7 @@ function Search() {
     setNumber(+event.target.value);
   }
 
-  function handleBlur() {
+  function handleBlurEvent() {
     handleButtonClick();
   }
 
@@ -46,7 +45,7 @@ function Search() {
     localStorage.setItem('lastSearch', value);
 
     updateLoadingState();
-    const json = await searchApi(value);
+    const json = await searchApi(value, location.search);
     updateDataState(json!);
 
     updateLoadingState();
@@ -69,7 +68,7 @@ function Search() {
         max="10"
         value={number}
         onChange={(e) => handleInputNumberEvent(e)}
-        onBlur={() => handleBlur()}
+        onBlur={() => handleBlurEvent()}
       />
       <button className={styles.button} onClick={(e) => handleButtonClick(e)}>
         Search

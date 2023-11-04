@@ -9,19 +9,28 @@ function Pagination() {
   const { response } = data;
 
   const navigate = useNavigate();
-  const nextPageNum = +response.next.slice(response.next.length - 1) - 1;
+  let nextPageNum: number;
+  if (response.next) {
+    nextPageNum = +response.next.slice(response.next.length - 1) - 1;
+  }
 
   async function handleButtonClick(next?: boolean) {
-    navigate(`/?page=${next ? nextPageNum + 1 : nextPageNum - 1}`);
+    if (response.next) {
+      navigate(`/?page=${next ? nextPageNum + 1 : nextPageNum - 1}`);
+    }
 
     const value = localStorage.getItem('lastSearch')!;
     updateLoadingState();
     const json = await searchApi(
       value,
-      next ? response.next : response.previous
+      next ? getQueryFromURL(response.next) : getQueryFromURL(response.previous)
     );
     updateDataState(json!);
     updateLoadingState();
+  }
+
+  function getQueryFromURL(URL: string) {
+    return URL.slice(URL.indexOf('?'));
   }
 
   return (
