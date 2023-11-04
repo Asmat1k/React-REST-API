@@ -29,7 +29,6 @@ function Pagination() {
       >
         &lt;
       </button>
-      <div className={styles.count}>1</div>
       <button
         disabled={!response.next}
         className={styles.button}

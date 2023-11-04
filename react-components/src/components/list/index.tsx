@@ -8,7 +8,7 @@ import Context from '../../context';
 
 function List() {
   const { data } = useContext(Context);
-  const { response, isLoading } = data;
+  const { response, number, isLoading } = data;
 
   if (isLoading) {
     return (
@@ -29,9 +29,11 @@ function List() {
     return (
       <section className={styles.data}>
         <ul className={styles.list}>
-          {results.map((character: ApiItem, index: number) => (
-            <Item data={character} key={index} myKey={index} />
-          ))}
+          {results.map((character: ApiItem, index: number) => {
+            if (index < number) {
+              return <Item data={character} key={index} myKey={index} />;
+            }
+          })}
         </ul>
         <Pagination />
       </section>

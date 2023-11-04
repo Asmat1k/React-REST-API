@@ -6,13 +6,16 @@ import searchApi from '../../api/api';
 import Context from '../../context';
 
 function Search() {
-  const { updateLoadingState, updateDataState } = useContext(Context);
+  const { updateLoadingState, updateDataState, updateNumberState } =
+    useContext(Context);
 
   const [value, setValue] = useState<string>(
     localStorage.getItem('lastSearch')
       ? localStorage.getItem('lastSearch')!
       : ''
   );
+
+  const [number, setNumber] = useState<number>(10);
 
   useEffect(() => {
     handleButtonClick();
@@ -23,17 +26,31 @@ function Search() {
     setValue(event.target.value);
   }
 
-  async function handleButtonClick() {
+  function handleInputNumberEvent(event: React.ChangeEvent<HTMLInputElement>) {
+    setNumber(+event.target.value);
+  }
+
+  function handleBlur() {
+    handleButtonClick();
+  }
+
+  async function handleButtonClick(
+    event?: React.MouseEvent<HTMLButtonElement>
+  ) {
+    if (event) event.preventDefault();
+    updateNumberState(number);
+
     localStorage.setItem('lastSearch', value);
 
     updateLoadingState();
     const json = await searchApi(value);
     updateDataState(json!);
+
     updateLoadingState();
   }
 
   return (
-    <section className={styles.search}>
+    <form className={styles.search}>
       <input
         type="text"
         className={styles.input}
@@ -42,10 +59,19 @@ function Search() {
         value={value}
         onChange={(e) => handleInputEvent(e)}
       />
-      <button className={styles.button} onClick={() => handleButtonClick()}>
+      <input
+        className={styles.number}
+        type="number"
+        min="1"
+        max="10"
+        value={number}
+        onChange={(e) => handleInputNumberEvent(e)}
+        onBlur={() => handleBlur()}
+      />
+      <button className={styles.button} onClick={(e) => handleButtonClick(e)}>
         Search
       </button>
-    </section>
+    </form>
   );
 }
 

@@ -11,6 +11,7 @@ import Context from './context';
 
 interface AppState {
   response: ApiProps;
+  number: number;
   isLoading: boolean;
 }
 
@@ -22,6 +23,7 @@ function App() {
       previous: '',
       results: [],
     },
+    number: 10,
     isLoading: false,
   });
 
@@ -30,11 +32,28 @@ function App() {
   }
 
   function updateDataState(json?: ApiProps | void) {
-    if (json) setData((prevState) => ({ ...prevState, response: json }));
+    if (json)
+      setData((prevState) => {
+        return {
+          ...prevState,
+          response: json,
+        };
+      });
+  }
+
+  function updateNumberState(newNum: number) {
+    setData((prevState) => {
+      return {
+        ...prevState,
+        number: newNum,
+      };
+    });
   }
 
   return (
-    <Context.Provider value={{ data, updateLoadingState, updateDataState }}>
+    <Context.Provider
+      value={{ data, updateLoadingState, updateDataState, updateNumberState }}
+    >
       <Search />
       <List />
       <ErrorButton />

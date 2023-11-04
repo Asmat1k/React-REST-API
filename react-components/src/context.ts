@@ -4,10 +4,12 @@ import { ApiProps } from './types/types';
 interface DefaultValue {
   data: {
     response: ApiProps;
+    number: number;
     isLoading: boolean;
   };
   updateLoadingState(): void;
   updateDataState(json: ApiProps | void): void;
+  updateNumberState(newNum: number): void;
 }
 
 const Context = createContext<DefaultValue>({
@@ -18,10 +20,12 @@ const Context = createContext<DefaultValue>({
       previous: '',
       results: [],
     },
+    number: 10,
     isLoading: false,
   },
   updateLoadingState() {},
   updateDataState() {},
+  updateNumberState() {},
 });
 
 export default Context;
