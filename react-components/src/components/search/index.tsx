@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './search.module.scss';
 
@@ -16,6 +16,11 @@ function Search({ updateData, updateLoading }: SearchProps) {
       ? localStorage.getItem('lastSearch')!
       : ''
   );
+
+  useEffect(() => {
+    handleButtonClick();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleInputEvent(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
