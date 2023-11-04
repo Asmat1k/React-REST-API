@@ -4,11 +4,13 @@ import styles from './search.module.scss';
 
 import searchApi from '../../api/api';
 import Context from '../../context';
+import { useNavigate } from 'react-router-dom';
 
 function Search() {
   const { updateLoadingState, updateDataState, updateNumberState } =
     useContext(Context);
 
+  const navigate = useNavigate();
   const [value, setValue] = useState<string>(
     localStorage.getItem('lastSearch')
       ? localStorage.getItem('lastSearch')!
@@ -19,6 +21,7 @@ function Search() {
 
   useEffect(() => {
     handleButtonClick();
+    navigate('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
