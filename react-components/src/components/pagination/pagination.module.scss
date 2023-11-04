@@ -12,6 +12,8 @@
     align-items: center;
     justify-content: center;
 
+    background-color: transparent;
+    color: white;
     border: 1px solid white;
     border-radius: 100%;
 
@@ -26,6 +28,10 @@
     }
     &:active {
       transform: scale(0.9);
+    }
+    &:disabled {
+      border-color: gray;
+      color: gray;
     }
   }
   .count {
