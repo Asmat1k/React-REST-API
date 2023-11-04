@@ -7,15 +7,16 @@ import { ApiProps } from './types/types';
 import Search from './components/search';
 import List from './components/list';
 import ErrorButton from './components/errorButton';
+import Context from './context';
 
 interface AppState {
-  data: ApiProps;
+  response: ApiProps;
   isLoading: boolean;
 }
 
 function App() {
   const [data, setData] = useState<AppState>({
-    data: {
+    response: {
       count: 0,
       next: '',
       previous: '',
@@ -29,15 +30,15 @@ function App() {
   }
 
   function updateDataState(json?: ApiProps | void) {
-    if (json) setData((prevState) => ({ ...prevState, data: json }));
+    if (json) setData((prevState) => ({ ...prevState, response: json }));
   }
 
   return (
-    <>
-      <Search updateData={updateDataState} updateLoading={updateLoadingState} />
-      <List isLoading={data.isLoading} data={data.data} />
+    <Context.Provider value={{ data, updateLoadingState, updateDataState }}>
+      <Search />
+      <List />
       <ErrorButton />
-    </>
+    </Context.Provider>
   );
 }
 

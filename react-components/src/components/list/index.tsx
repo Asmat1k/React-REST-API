@@ -1,15 +1,15 @@
 import styles from './list.module.scss';
 
-import { ApiItem, ApiProps } from '../../types/types';
+import { ApiItem } from '../../types/types';
 import Item from '../item';
 import Pagination from '../pagination';
+import { useContext } from 'react';
+import Context from '../../context';
 
-interface ListProps {
-  data: ApiProps;
-  isLoading: boolean;
-}
+function List() {
+  const { data } = useContext(Context);
+  const { response, isLoading } = data;
 
-function List({ data, isLoading }: ListProps) {
   if (isLoading) {
     return (
       <div className={styles.loading_wrapper}>
@@ -23,7 +23,7 @@ function List({ data, isLoading }: ListProps) {
     );
   }
 
-  const { results } = data;
+  const { results } = response;
 
   if (results && results.length > 0) {
     return (

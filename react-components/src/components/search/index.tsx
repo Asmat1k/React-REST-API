@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import styles from './search.module.scss';
 
-import { ApiProps } from '../../types/types';
 import searchApi from '../../api/api';
+import Context from '../../context';
 
-interface SearchProps {
-  updateData: (param: ApiProps) => void;
-  updateLoading: () => void;
-}
+function Search() {
+  const { updateLoadingState, updateDataState } = useContext(Context);
 
-function Search({ updateData, updateLoading }: SearchProps) {
   const [value, setValue] = useState<string>(
     localStorage.getItem('lastSearch')
       ? localStorage.getItem('lastSearch')!
@@ -29,10 +26,10 @@ function Search({ updateData, updateLoading }: SearchProps) {
   async function handleButtonClick() {
     localStorage.setItem('lastSearch', value);
 
-    updateLoading();
+    updateLoadingState();
     const json = await searchApi(value);
-    updateData(json!);
-    updateLoading();
+    updateDataState(json!);
+    updateLoadingState();
   }
 
   return (
