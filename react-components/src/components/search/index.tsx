@@ -4,13 +4,14 @@ import styles from './search.module.scss';
 
 import searchApi from '../../api/api';
 import Context from '../../context';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Search() {
   const { updateLoadingState, updateDataState, updateNumberState } =
     useContext(Context);
 
   const navigation = useNavigate();
+  const location = useLocation();
 
   const [value, setValue] = useState<string>(
     localStorage.getItem('lastSearch')
@@ -33,25 +34,31 @@ function Search() {
     setNumber(+event.target.value);
   }
 
-  function handleBlurEvent() {
-    handleButtonClick();
+  async function handleBlurEvent() {
+    updateNumberState(number);
+    localStorage.setItem('lastSearch', value);
+
+    navigation('/?page=1');
+    updateLoadingState();
+    const json = await searchApi(`?search=${value}&page=1`);
+    updateDataState(json!);
+
+    updateLoadingState();
   }
 
   async function handleButtonClick(
     event?: React.MouseEvent<HTMLButtonElement>
   ) {
     if (event) event.preventDefault();
-    updateNumberState(number);
 
+    updateNumberState(number);
     localStorage.setItem('lastSearch', value);
-    const newQuery = `/?search=${value}&page=1`;
-    navigation(newQuery);
 
     updateLoadingState();
-
-    const json = await searchApi(newQuery);
-
+    const pageQuery = `&${location.search.slice(1)}`;
+    const json = await searchApi(`?search=${value}${pageQuery}`);
     updateDataState(json!);
+
     updateLoadingState();
   }
 

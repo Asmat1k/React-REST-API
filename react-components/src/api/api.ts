@@ -2,7 +2,9 @@ import { ApiProps } from '../types/types';
 
 const URL = 'https://swapi.dev/api/people/';
 
-async function searchApi(query: string): Promise<ApiProps | void> {
+async function searchApi(
+  query: string = `?search=${localStorage.getItem('lastSearch')!}?page=1`
+): Promise<ApiProps | void> {
   const request = `${URL}${query}`;
   try {
     const response = await fetch(request);
