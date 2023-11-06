@@ -15,9 +15,7 @@ function Pagination() {
   }
 
   async function handleButtonClick(next?: boolean) {
-    if (response.next) {
-      navigate(`/?page=${next ? nextPageNum + 1 : nextPageNum - 1}`);
-    }
+    navigate(`/?page=${next ? nextPageNum + 1 : nextPageNum - 1}`);
 
     updateLoadingState();
     const json = await searchApi(

@@ -1,5 +1,6 @@
 import styles from './item.module.scss';
 import { ApiItem } from '../../types/types';
+import { Link } from 'react-router-dom';
 
 interface ItemProps {
   data: ApiItem;
@@ -8,13 +9,15 @@ interface ItemProps {
 
 function Item({ data, myKey }: ItemProps) {
   return (
-    <li key={myKey} className={styles.item}>
-      <h3 className="">{data.name}</h3>
-      <div className="">Year: {data.birth_year}</div>
-      <div className="">Skin: {data.skin_color}</div>
-      <div className="">Height: {data.height}</div>
-      <div className="">Mass: {data.mass}</div>
-    </li>
+    <Link to={`details/${data.name}`} className={styles.link}>
+      <li key={myKey} className={styles.item}>
+        <h3>{data.name}</h3>
+        <div>Year: {data.birth_year}</div>
+        <div>Skin: {data.skin_color}</div>
+        <div>Height: {data.height}</div>
+        <div>Mass: {data.mass}</div>
+      </li>
+    </Link>
   );
 }
 

@@ -1,7 +1,9 @@
 .loading_wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
+  height: 40vh;
+  width: 100%;
   .loading {
     display: inline-block;
 
@@ -33,17 +35,22 @@
   }
 }
 
-.data {
-  width: 60%;
+.wrapper {
+  display: flex;
+  width: 100%;
   margin: 0 auto;
-  .list {
-    list-style: none;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  color: white;
+  text-decoration: none;
+  .data {
+    .list {
+      list-style: none;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
 
-    gap: 10px;
+      gap: 10px;
+    }
   }
 }
 

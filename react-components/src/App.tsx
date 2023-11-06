@@ -1,4 +1,5 @@
 import './styles/nullstyles.scss';
+import styles from './app.module.scss';
 
 import { useState } from 'react';
 
@@ -8,6 +9,7 @@ import Search from './components/search';
 import List from './components/list';
 import ErrorButton from './components/errorButton';
 import Context from './context';
+import { Outlet } from 'react-router-dom';
 
 interface AppState {
   response: ApiProps;
@@ -52,10 +54,18 @@ function App() {
 
   return (
     <Context.Provider
-      value={{ data, updateLoadingState, updateDataState, updateNumberState }}
+      value={{
+        data,
+        updateLoadingState,
+        updateDataState,
+        updateNumberState,
+      }}
     >
       <Search />
-      <List />
+      <div className={styles.results}>
+        <List />
+        <Outlet />
+      </div>
       <ErrorButton />
     </Context.Provider>
   );
