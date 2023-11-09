@@ -11,11 +11,25 @@ function Item({ data, myKey }: ItemProps) {
   return (
     <Link to={`details/${data.name}`} className={styles.link}>
       <li key={myKey} className={styles.item}>
-        <h3>{data.name}</h3>
-        <div>Year: {data.birth_year}</div>
-        <div>Skin: {data.skin_color}</div>
-        <div>Height: {data.height}</div>
-        <div>Mass: {data.mass}</div>
+        <h3 className={styles.name}>{data.name}</h3>
+        <div className={styles.info}>
+          <div>
+            <span className={styles.characteristic}>Gender:</span>
+            {data.gender}
+          </div>
+          <div>
+            <span className={styles.characteristic}>Height:</span>
+            {data.height} cm
+          </div>
+          <div>
+            <span className={styles.characteristic}>Mass:</span>
+            {data.mass} kg
+          </div>
+          <div>
+            <span className={styles.characteristic}>Year:</span>
+            {data.birth_year}
+          </div>
+        </div>
       </li>
     </Link>
   );

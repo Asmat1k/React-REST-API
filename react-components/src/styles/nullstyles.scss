@@ -44,6 +44,9 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
+  background-color: black;
+  background: url('../../public/space.jpg') no-repeat;
+  background-size: cover;
   line-height: 1.5;
 }
 
