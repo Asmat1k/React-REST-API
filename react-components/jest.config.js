@@ -1,7 +1,12 @@
 module.exports = {
   preset: 'ts-jest',
-  moduleDirectories: ['node_modules', '#src'],
-  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
+  testMatch: ['**/__tests__/*.(test|spec).[jt]s?(x)'],
+  moduleNameMapper: {
+    '^.+\\.svg$': 'jest-svg-transformer',
+    '^.+\\.(css|less|scss)$': 'identity-obj-proxy',
+  },
+  testEnvironment: 'jsdom',
+  clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
@@ -9,5 +14,4 @@ module.exports = {
     '**/#src/**/*.js',
     '!**/node_modules/**',
   ],
-  testEnvironment: 'jest-environment-jsdom',
 };
