@@ -9,6 +9,14 @@ lerna-debug.log*
 
 node_modules
 dist
+
+# Testing folder
+.coverage*
+lcov-report
+*.xml
+coverage-final.json
+lcov.info
+
 dist-ssr
 *.local
 

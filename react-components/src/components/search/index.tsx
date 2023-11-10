@@ -55,7 +55,10 @@ function Search() {
     localStorage.setItem('lastSearch', value);
 
     updateLoadingState();
-    const pageQuery = `&${location.search.slice(1)}`;
+    let pageQuery = '';
+    if (location.search) {
+      pageQuery = `&${location.search.slice(1)}`;
+    }
     const json = await searchApi(`?search=${value}${pageQuery}`);
     updateDataState(json!);
 

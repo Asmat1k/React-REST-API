@@ -10,8 +10,9 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
-    '**/#src/**/*.ts',
-    '**/#src/**/*.js',
+    '**/src/**/*.ts',
+    '**/src/**/*.tsx',
+    '**/src/**/*.js',
     '!**/node_modules/**',
   ],
 };
