@@ -11,11 +11,7 @@ node_modules
 dist
 
 # Testing folder
-.coverage*
-lcov-report
-*.xml
-coverage-final.json
-lcov.info
+coverage
 
 dist-ssr
 *.local
