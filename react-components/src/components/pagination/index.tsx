@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './pagination.module.scss';
-import Context from '../../context';
+import Context from '../../utils/context/context';
 import searchApi from '../../api/api';
 
 function Pagination() {

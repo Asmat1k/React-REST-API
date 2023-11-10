@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-import { ApiProps } from './types/types';
+
+import { ApiProps } from '../../types/types';
 
 interface DefaultValue {
   data: {

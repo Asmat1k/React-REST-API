@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './search.module.scss';
 
 import searchApi from '../../api/api';
-import Context from '../../context';
+import Context from '../../utils/context/context';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Search() {

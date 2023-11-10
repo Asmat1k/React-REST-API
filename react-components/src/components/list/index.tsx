@@ -4,7 +4,7 @@ import { ApiItem } from '../../types/types';
 import Item from '../item';
 import Pagination from '../pagination';
 import { useContext } from 'react';
-import Context from '../../context';
+import Context from '../../utils/context/context';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function List() {
