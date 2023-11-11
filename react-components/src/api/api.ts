@@ -10,8 +10,8 @@ async function searchApi(
     const response = await fetch(request);
     const json: ApiProps = await response.json();
     return json;
-  } catch (error) {
-    console.log(error);
+  } catch {
+    console.log('Error is occured!');
   }
 }
 
