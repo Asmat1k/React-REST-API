@@ -16,7 +16,7 @@ function List() {
 
   if (isLoading) {
     return (
-      <div className={styles.loading_wrapper}>
+      <div data-testid="loading-spinner" className={styles.loading_wrapper}>
         <div className={styles.loading}>
           <div></div>
           <div></div>
