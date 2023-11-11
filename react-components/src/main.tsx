@@ -4,11 +4,13 @@ import ErrorBoundary from './components/errorBoundary/index.tsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import DetailedItem from './components/detailed-item/index.tsx';
 import searchApi from './api/api.ts';
+import ErrorPage from './components/errorBoundary/404.tsx';
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: 'details/:name',
