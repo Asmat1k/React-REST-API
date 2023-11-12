@@ -34,6 +34,10 @@ function Search() {
     setNumber(+event.target.value);
   }
 
+  function handleInputBlurEvent() {
+    localStorage.setItem('lastSearch', value);
+  }
+
   async function handleBlurEvent() {
     updateNumberState(number);
     localStorage.setItem('lastSearch', value);
@@ -74,6 +78,7 @@ function Search() {
         maxLength={20}
         value={value}
         onChange={(e) => handleInputEvent(e)}
+        onBlur={() => handleInputBlurEvent()}
       />
       <input
         className={styles.number}
