@@ -14,5 +14,7 @@ module.exports = {
     '**/src/**/*.tsx',
     '**/src/**/*.js',
     '!**/node_modules/**',
+    '!**/main.tsx',
+    '!**/*.d.ts',
   ],
 };
