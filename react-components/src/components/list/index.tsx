@@ -13,8 +13,9 @@ function List() {
   const location = useLocation();
 
   const { data } = useContext(Context);
-  const { response, number } = data;
+  const { response } = data;
 
+  const number = useAppSelector((state) => state.dataReducer.number);
   const isLoading = useAppSelector((state) => state.dataReducer.isLoading);
 
   if (isLoading) {

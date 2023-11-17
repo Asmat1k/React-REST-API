@@ -4,9 +4,15 @@ import styles from './pagination.module.scss';
 import Context from '../../utils/context/context';
 import searchApi from '../../api/api';
 
+import { updateLoading } from '../../store/reducers/dataSlice';
+import { useDispatch } from 'react-redux';
+
 function Pagination() {
-  const { data, updateDataState, updateLoadingState } = useContext(Context);
+  const { data, updateDataState } = useContext(Context);
   const { response } = data;
+
+  const dispatch = useDispatch();
+  const updateLoadingState = () => dispatch(updateLoading());
 
   const navigate = useNavigate();
   let nextPageNum: number;

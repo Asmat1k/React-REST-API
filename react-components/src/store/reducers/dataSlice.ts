@@ -25,9 +25,12 @@ export const dataSlice = createSlice({
     updateLoading(state) {
       state.isLoading = !state.isLoading;
     },
+    updateNumber(state, action) {
+      state.number = action.payload;
+    },
   },
 });
 
-export const { updateLoading } = dataSlice.actions;
+export const { updateLoading, updateNumber } = dataSlice.actions;
 
 export default dataSlice.reducer;
