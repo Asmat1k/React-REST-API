@@ -1,17 +1,17 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './pagination.module.scss';
-import Context from '../../utils/context/context';
 import searchApi from '../../api/api';
 
-import { updateLoading } from '../../store/reducers/dataSlice';
+import { updateLoading, updateResponse } from '../../store/reducers/dataSlice';
 import { useDispatch } from 'react-redux';
+import { ApiProps } from '../../types/types';
+import { useAppSelector } from '../../hooks/redux';
 
 function Pagination() {
-  const { data, updateDataState } = useContext(Context);
-  const { response } = data;
+  const response = useAppSelector((state) => state.dataReducer.response);
 
   const dispatch = useDispatch();
+  const updateDataState = (json: ApiProps) => dispatch(updateResponse(json));
   const updateLoadingState = () => dispatch(updateLoading());
 
   const navigate = useNavigate();

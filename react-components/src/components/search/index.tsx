@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './search.module.scss';
 
 import searchApi from '../../api/api';
-import Context from '../../utils/context/context';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { updateLoading, updateNumber } from '../../store/reducers/dataSlice';
+import {
+  updateLoading,
+  updateNumber,
+  updateResponse,
+} from '../../store/reducers/dataSlice';
 import { useDispatch } from 'react-redux';
+import { ApiProps } from '../../types/types';
 
 function Search() {
-  const { updateDataState } = useContext(Context);
-
   const dispatch = useDispatch();
+  const updateDataState = (json: ApiProps) => dispatch(updateResponse(json));
   const updateLoadingState = () => dispatch(updateLoading());
   const updateNumberState = (number: number) => dispatch(updateNumber(number));
 

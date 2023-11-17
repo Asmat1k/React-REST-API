@@ -22,6 +22,9 @@ export const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
+    updateResponse(state, action) {
+      state.response = action.payload;
+    },
     updateLoading(state) {
       state.isLoading = !state.isLoading;
     },
@@ -31,6 +34,7 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { updateLoading, updateNumber } = dataSlice.actions;
+export const { updateLoading, updateNumber, updateResponse } =
+  dataSlice.actions;
 
 export default dataSlice.reducer;

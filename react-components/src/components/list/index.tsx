@@ -3,8 +3,7 @@ import styles from './list.module.scss';
 import { ApiItem } from '../../types/types';
 import Item from '../item';
 import Pagination from '../pagination';
-import { useContext } from 'react';
-import Context from '../../utils/context/context';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
@@ -12,9 +11,7 @@ function List() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data } = useContext(Context);
-  const { response } = data;
-
+  const response = useAppSelector((state) => state.dataReducer.response);
   const number = useAppSelector((state) => state.dataReducer.number);
   const isLoading = useAppSelector((state) => state.dataReducer.isLoading);
 
