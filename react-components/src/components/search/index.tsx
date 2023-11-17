@@ -9,12 +9,14 @@ import {
   updateLoading,
   updateNumber,
   updateResponse,
+  updateSearch,
 } from '../../store/reducers/dataSlice';
 import { useDispatch } from 'react-redux';
 import { ApiProps } from '../../types/types';
 
 function Search() {
   const dispatch = useDispatch();
+  const updateSearchState = (str: string) => dispatch(updateSearch(str));
   const updateDataState = (json: ApiProps) => dispatch(updateResponse(json));
   const updateLoadingState = () => dispatch(updateLoading());
   const updateNumberState = (number: number) => dispatch(updateNumber(number));
@@ -64,6 +66,7 @@ function Search() {
   ) {
     if (event) event.preventDefault();
 
+    updateSearchState(value);
     updateNumberState(number);
     localStorage.setItem('lastSearch', value);
 
