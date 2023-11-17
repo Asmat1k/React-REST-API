@@ -6,13 +6,16 @@ import Pagination from '../pagination';
 import { useContext } from 'react';
 import Context from '../../utils/context/context';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 
 function List() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const { data } = useContext(Context);
-  const { response, number, isLoading } = data;
+  const { response, number } = data;
+
+  const isLoading = useAppSelector((state) => state.dataReducer.isLoading);
 
   if (isLoading) {
     return (

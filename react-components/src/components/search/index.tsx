@@ -5,10 +5,14 @@ import styles from './search.module.scss';
 import searchApi from '../../api/api';
 import Context from '../../utils/context/context';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { updateLoading } from '../../store/reducers/dataSlice';
+import { useDispatch } from 'react-redux';
 
 function Search() {
-  const { updateLoadingState, updateDataState, updateNumberState } =
-    useContext(Context);
+  const { updateDataState, updateNumberState } = useContext(Context);
+
+  const dispatch = useDispatch();
+  const updateLoadingState = () => dispatch(updateLoading());
 
   const navigation = useNavigate();
   const location = useLocation();
