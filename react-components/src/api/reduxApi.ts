@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { updateLoading } from '../store/reducers/dataSlice';
 
 export const dataApi = createApi({
   reducerPath: 'searchApi',
@@ -10,6 +11,11 @@ export const dataApi = createApi({
       ) => ({
         url: `${str}`,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        dispatch(updateLoading());
+        await queryFulfilled;
+        dispatch(updateLoading());
+      },
     }),
   }),
 });

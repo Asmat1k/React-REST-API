@@ -14,10 +14,13 @@ function List() {
 
   const search = useAppSelector((state) => state.dataReducer.search);
   const number = useAppSelector((state) => state.dataReducer.number);
+  const isLoadingMain = useAppSelector(
+    (state) => state.dataReducer.isLoadingMain
+  );
 
   const { data, isLoading } = useSearchPeopleQuery(search);
 
-  if (isLoading) {
+  if (isLoading || isLoadingMain) {
     return (
       <div data-testid="loading-spinner" className={styles.loading_wrapper}>
         <div className={styles.loading}>
