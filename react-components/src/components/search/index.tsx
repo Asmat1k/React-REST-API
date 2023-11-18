@@ -41,7 +41,6 @@ function Search() {
 
   async function handleBlurEvent() {
     updateNumberState(number);
-    localStorage.setItem('lastSearch', value);
 
     navigation('/?page=1');
   }
@@ -49,10 +48,10 @@ function Search() {
   async function handleButtonClick(
     event?: React.MouseEvent<HTMLButtonElement>
   ) {
+    localStorage.setItem('lastSearch', value);
     if (event) event.preventDefault();
 
     updateNumberState(number);
-    localStorage.setItem('lastSearch', value);
 
     let pageQuery = '&page=1';
     if (location.search) {
