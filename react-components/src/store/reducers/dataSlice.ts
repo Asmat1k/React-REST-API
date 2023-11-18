@@ -5,7 +5,7 @@ interface DataState {
   search: string;
   response: ApiProps;
   number: number;
-  isLoading: boolean;
+  isLoadingPag: boolean;
 }
 
 const initialState: DataState = {
@@ -17,7 +17,7 @@ const initialState: DataState = {
     results: [],
   },
   number: 10,
-  isLoading: false,
+  isLoadingPag: false,
 };
 
 export const dataSlice = createSlice({
@@ -31,7 +31,7 @@ export const dataSlice = createSlice({
       state.response = action.payload;
     },
     updateLoading(state) {
-      state.isLoading = !state.isLoading;
+      state.isLoadingPag = !state.isLoadingPag;
     },
     updateNumber(state, action) {
       state.number = action.payload;

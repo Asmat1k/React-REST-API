@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
 import styles from './search.module.scss';
-
-import searchApi from '../../api/api';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  updateLoading,
-  updateNumber,
-  updateResponse,
-  updateSearch,
-} from '../../store/reducers/dataSlice';
+import { updateNumber, updateSearch } from '../../store/reducers/dataSlice';
 import { useDispatch } from 'react-redux';
-import { ApiProps } from '../../types/types';
 
 function Search() {
   const dispatch = useDispatch();
   const updateSearchState = (str: string) => dispatch(updateSearch(str));
-  const updateDataState = (json: ApiProps) => dispatch(updateResponse(json));
-  const updateLoadingState = () => dispatch(updateLoading());
   const updateNumberState = (number: number) => dispatch(updateNumber(number));
 
   const navigation = useNavigate();
@@ -34,6 +23,7 @@ function Search() {
 
   useEffect(() => {
     handleButtonClick();
+    updateSearchState(`?search=${value}&page=1`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -54,11 +44,6 @@ function Search() {
     localStorage.setItem('lastSearch', value);
 
     navigation('/?page=1');
-    updateLoadingState();
-    const json = await searchApi(`?search=${value}&page=1`);
-    updateDataState(json!);
-
-    updateLoadingState();
   }
 
   async function handleButtonClick(
@@ -66,19 +51,14 @@ function Search() {
   ) {
     if (event) event.preventDefault();
 
-    updateSearchState(value);
     updateNumberState(number);
     localStorage.setItem('lastSearch', value);
 
-    updateLoadingState();
-    let pageQuery = '';
+    let pageQuery = '&page=1';
     if (location.search) {
       pageQuery = `&${location.search.slice(1)}`;
     }
-    const json = await searchApi(`?search=${value}${pageQuery}`);
-    updateDataState(json!);
-
-    updateLoadingState();
+    updateSearchState(`?search=${value}${pageQuery}`);
   }
 
   return (

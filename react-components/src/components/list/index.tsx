@@ -6,14 +6,16 @@ import Pagination from '../pagination';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
+import { useSearchPeopleQuery } from '../../api/reduxApi';
 
 function List() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const response = useAppSelector((state) => state.dataReducer.response);
+  const search = useAppSelector((state) => state.dataReducer.search);
   const number = useAppSelector((state) => state.dataReducer.number);
-  const isLoading = useAppSelector((state) => state.dataReducer.isLoading);
+
+  const { data, isLoading } = useSearchPeopleQuery(search);
 
   if (isLoading) {
     return (
@@ -34,7 +36,7 @@ function List() {
     }
   }
 
-  const { results } = response;
+  const { results } = data;
 
   if (results && results.length > 0) {
     return (

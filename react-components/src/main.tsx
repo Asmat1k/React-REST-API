@@ -8,6 +8,8 @@ import ErrorPage from './components/errorBoundary/404.tsx';
 import { Provider } from 'react-redux';
 import { setupStore } from './store/store.ts';
 
+const store = setupStore();
+
 export const router = createBrowserRouter([
   {
     path: '',
@@ -26,8 +28,6 @@ export const router = createBrowserRouter([
 ]);
 
 export default router;
-
-const store = setupStore();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ErrorBoundary>
