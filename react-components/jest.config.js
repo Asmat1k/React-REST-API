@@ -17,6 +17,5 @@ module.exports = {
     '!**/main.tsx',
     '!**/*.d.ts',
     '!**/store/*.ts',
-    '!**/store/**/*.ts',
   ],
 };
