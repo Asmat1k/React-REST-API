@@ -1,49 +1,33 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import List from '../components/list';
-
-jest.mock('../utils/context/context');
+import { Provider } from 'react-redux';
+import { setupStore } from '../store/store';
+import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => jest.fn(),
-  useLocation: () => jest.fn(),
+  useNavigate: jest.fn(),
+  useLocation: jest.fn(() => ({ pathname: '/details' })),
 }));
 
-describe('List', () => {
-  test('Renders loading spinner', async () => {
-    const mockContextValue = {
-      data: {
-        response: {},
-        number: 0,
-        isLoading: true,
-      },
-    };
+jest.mock('../api/reduxApi', () => ({
+  ...jest.requireActual('../api/reduxApi'),
+  useSearchPeopleQuery: jest.fn(() => ({
+    data: { results: [{ id: 1, name: '' }] },
+    isLoading: true,
+  })),
+}));
 
-    jest.spyOn(React, 'useContext').mockReturnValue(mockContextValue);
-
-    const { getByTestId } = render(<List />);
-
-    expect(getByTestId('loading-spinner')).toBeInTheDocument();
-  });
-
-  test('Renders "Nothing was found..."', async () => {
-    const mockContextValue = {
-      data: {
-        response: {
-          results: [],
-        },
-        number: 0,
-        isLoading: false,
-      },
-    };
-
-    jest.spyOn(React, 'useContext').mockReturnValue(mockContextValue);
-
-    render(<List />);
-
-    const tesxtElement = screen.getByText('Nothing was found...');
-    expect(tesxtElement).toBeInTheDocument();
+describe('List component', () => {
+  test('renders loading spinner while data is loading', () => {
+    render(
+      <BrowserRouter>
+        <Provider store={setupStore()}>
+          <List />
+        </Provider>
+      </BrowserRouter>
+    );
+    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
   });
 });

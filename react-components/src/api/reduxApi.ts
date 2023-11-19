@@ -11,7 +11,7 @@ export const dataApi = createApi({
       ) => ({
         url: `${str}`,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         dispatch(updateLoading());
         await queryFulfilled;
         dispatch(updateLoading());

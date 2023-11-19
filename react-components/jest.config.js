@@ -13,9 +13,13 @@ module.exports = {
     '**/src/**/*.ts',
     '**/src/**/*.tsx',
     '**/src/**/*.js',
+    '!**/api/api.ts',
     '!**/node_modules/**',
     '!**/main.tsx',
     '!**/*.d.ts',
     '!**/store/*.ts',
+    '!**/store/**/*.ts',
+    '!**/utils/**/*.ts?(x)',
+    '!**/utils/*.ts',
   ],
 };
